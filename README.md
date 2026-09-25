@@ -1,63 +1,59 @@
 # Vehicle Rental Management System
 
-A terminal-based Vehicle Rental Management System built using Core Java. The project is being developed incrementally and now includes a MySQL database connection through JDBC.
+A terminal-based Vehicle Rental Management System built with Core Java, OOP, Java Collections, JDBC, MySQL, exception handling, and a menu-driven console interface.
 
-## Commit 6 - Vehicle CRUD with MySQL
+## Features
 
-This commit adds database-backed CRUD operations for vehicles.
+### Vehicle Management
+- Add cars and motorcycles
+- View all vehicles
+- Find a vehicle by ID
+- Update vehicle information
+- Delete available vehicles
+- Track vehicle availability
 
-### Added
-- `VehicleDAO` for create, read, update, and delete operations
-- `PreparedStatement` for all vehicle SQL operations
-- try-with-resources for JDBC resources
-- Mapping of database rows back to `Car` and `Motorcycle` objects
-- Generated vehicle IDs from MySQL
-- `VehicleCrudTest` console class for testing CRUD operations
-- Commit 6 vehicle schema migration for existing Commit 5 databases
+### Customer Management
+- Add customers
+- View all customers
+- Find a customer by ID
+- Update customer information
+- Delete customers
 
-### MySQL Setup
+### Rental Management
+- Start a rental
+- Validate rental dates
+- Check vehicle availability
+- Check that the vehicle and customer exist
+- Calculate rental cost
+- Complete a rental and return the vehicle to available status
+- View and find active rentals
 
-Create the database user and database in MySQL:
+## Technologies
 
-```sql
-CREATE DATABASE vehicle_rental_db;
+- Java 11+
+- MySQL
+- JDBC
+- Maven
+- IntelliJ IDEA
 
-CREATE USER 'rental_user'@'localhost' IDENTIFIED BY 'Rental@123';
-
-GRANT ALL PRIVILEGES ON vehicle_rental_db.*
-TO 'rental_user'@'localhost';
-
-FLUSH PRIVILEGES;
-```
-
-Then run `schema.sql` for a fresh database.
-
-If you already created the database using Commit 5, run:
-
-```text
-sql/commit6_vehicle_migration.sql
-```
-
-This adds the vehicle fields required by the Java `Car` and `Motorcycle` models.
-
-### Environment Variables
-
-Set these values in your local environment:
-
-```text
-DB_URL=jdbc:mysql://localhost:3306/vehicle_rental_db
-DB_USER=rental_user
-DB_PASSWORD=Rental@123
-```
-
-Do not commit a real `.env` file or real credentials to GitHub.
-
-## Current Project Structure
+## Project Structure
 
 ```text
 src/
+├── dao/
+│   ├── CustomerDAO.java
+│   ├── RentalDAO.java
+│   └── VehicleDAO.java
+├── exception/
+│   ├── CustomerNotFoundException.java
+│   ├── RentalValidationException.java
+│   ├── VehicleNotFoundException.java
+│   └── VehicleUnavailableException.java
 ├── main/
-│   └── Main.java
+│   ├── CustomerRentalCrudTest.java
+│   ├── Main.java
+│   ├── RentalWorkflowTest.java
+│   └── VehicleCrudTest.java
 ├── model/
 │   ├── Car.java
 │   ├── Customer.java
@@ -68,22 +64,94 @@ src/
 │   └── Vehicle.java
 └── service/
     ├── CustomerService.java
+    ├── RentalService.java
     └── VehicleService.java
 ```
 
-## Planned Later Work
+## MySQL Setup
 
-Customer and rental CRUD, rental workflow, input validation, custom exception handling, and the final menu-driven console interface will be added in later commits.
+For a fresh database, run `schema.sql`.
 
-## Commit 7: Customer and Rental CRUD
-- Added `CustomerDAO` with MySQL CRUD operations.
-- Added `RentalDAO` with MySQL CRUD operations.
-- Added a customer/rental database migration for `driving_license_number`.
-- Added `CustomerRentalCrudTest` for console-based CRUD testing.
-- Continued using `PreparedStatement` and try-with-resources.
+For an existing database created in earlier commits, run the migration scripts in order as needed:
 
-## Commit 8 additions
-- Rental workflow service for starting and completing rentals.
-- Custom exceptions for missing vehicles/customers, unavailable vehicles, and invalid rental dates.
-- Validation prevents past rental dates, same-day rentals, and return dates before rental dates.
-- Vehicle availability is updated when a rental starts and when it is completed.
+```text
+sql/commit6_vehicle_migration.sql
+sql/commit7_customer_rental_migration.sql
+```
+
+The final `vehicles` table requires:
+
+- registration_number
+- brand
+- model
+- daily_rate
+- available
+- vehicle_type
+- number_of_seats
+- engine_capacity
+
+The final `customers` table requires `driving_license_number`.
+
+## Environment Variables
+
+Set these environment variables in the IntelliJ Run Configuration:
+
+```text
+DB_URL=jdbc:mysql://localhost:3306/vehicle_rental_db
+DB_USER=your_mysql_username
+DB_PASSWORD=your_mysql_password
+```
+
+Do not commit a real `.env` file or database password.
+
+## Running the Application
+
+1. Make sure MySQL Server is running.
+2. Make sure the database and tables exist.
+3. Reload the Maven project in IntelliJ.
+4. Configure `DB_URL`, `DB_USER`, and `DB_PASSWORD`.
+5. Run:
+
+```text
+main.Main
+```
+
+The application opens with:
+
+```text
+========================================
+      VEHICLE RENTAL MANAGEMENT SYSTEM
+========================================
+
+1. Vehicle Management
+2. Customer Management
+3. Rental Management
+4. Exit
+```
+
+Each section contains its own submenu so the main menu stays short and easy to navigate.
+
+## Testing
+
+The project includes separate console test classes:
+
+- `DatabaseTest`
+- `VehicleCrudTest`
+- `CustomerRentalCrudTest`
+- `RentalWorkflowTest`
+
+`RentalWorkflowTest` verifies the rental workflow, including vehicle availability changes and validation.
+
+## Git Commit History
+
+The project was developed incrementally:
+
+1. Initial project structure
+2. Core OOP domain models
+3. Collections-based vehicle management
+4. Customer management
+5. MySQL database connection and schema
+6. Vehicle CRUD with MySQL
+7. Customer and Rental CRUD with MySQL
+8. Rental workflow and validation
+9. Final menu, integration, testing, and documentation
