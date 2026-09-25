@@ -81,3 +81,9 @@ Customer and rental CRUD, rental workflow, input validation, custom exception ha
 - Added a customer/rental database migration for `driving_license_number`.
 - Added `CustomerRentalCrudTest` for console-based CRUD testing.
 - Continued using `PreparedStatement` and try-with-resources.
+
+## Commit 8 additions
+- Rental workflow service for starting and completing rentals.
+- Custom exceptions for missing vehicles/customers, unavailable vehicles, and invalid rental dates.
+- Validation prevents past rental dates, same-day rentals, and return dates before rental dates.
+- Vehicle availability is updated when a rental starts and when it is completed.
