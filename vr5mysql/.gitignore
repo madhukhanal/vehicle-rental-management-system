@@ -1,8 +1,0 @@
-*.class
-*.jar
-target/
-out/
-.idea/
-.env
-*.log
-*.iml

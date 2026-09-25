@@ -5,10 +5,14 @@ USE vehicle_rental_db;
 
 CREATE TABLE IF NOT EXISTS vehicles (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    make VARCHAR(100) NOT NULL,
+    registration_number VARCHAR(50) NOT NULL,
+    brand VARCHAR(100) NOT NULL,
     model VARCHAR(100) NOT NULL,
     daily_rate DECIMAL(10, 2) NOT NULL,
-    available BOOLEAN NOT NULL DEFAULT TRUE
+    available BOOLEAN NOT NULL DEFAULT TRUE,
+    vehicle_type VARCHAR(30) NOT NULL,
+    number_of_seats INT NULL,
+    engine_capacity INT NULL
 );
 
 CREATE TABLE IF NOT EXISTS customers (
