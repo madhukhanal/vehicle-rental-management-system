@@ -19,7 +19,8 @@ CREATE TABLE IF NOT EXISTS customers (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(150) NOT NULL,
     phone VARCHAR(30) NOT NULL,
-    email VARCHAR(150)
+    email VARCHAR(150),
+    driving_license_number VARCHAR(50)
 );
 
 CREATE TABLE IF NOT EXISTS rentals (

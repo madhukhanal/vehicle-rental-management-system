@@ -74,3 +74,10 @@ src/
 ## Planned Later Work
 
 Customer and rental CRUD, rental workflow, input validation, custom exception handling, and the final menu-driven console interface will be added in later commits.
+
+## Commit 7: Customer and Rental CRUD
+- Added `CustomerDAO` with MySQL CRUD operations.
+- Added `RentalDAO` with MySQL CRUD operations.
+- Added a customer/rental database migration for `driving_license_number`.
+- Added `CustomerRentalCrudTest` for console-based CRUD testing.
+- Continued using `PreparedStatement` and try-with-resources.
